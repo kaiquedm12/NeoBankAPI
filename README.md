@@ -1,71 +1,65 @@
-🏦 NeoBank Core API
+# 🏦 NeoBank Core API
 
 Backend de um banco digital simplificado desenvolvido com Java + Spring Boot, focado em boas práticas, arquitetura em camadas, transações financeiras seguras e testes automatizados.
 
-📌 Sobre o Projeto
+## 📌 Sobre o Projeto
 
 O NeoBank Core API simula o núcleo de um banco digital, permitindo:
 
-Cadastro de usuários
-
-Gestão de contas bancárias
-
-Depósitos e saques
-
-Transferências entre contas
-
-Registro de histórico de transações
-
-Validações financeiras
-
-Controle transacional
+- Cadastro de usuários
+- Gestão de contas bancárias
+- Depósitos e saques
+- Transferências entre contas
+- Registro de histórico de transações
+- Validações financeiras
+- Controle transacional
 
 O projeto foi desenvolvido com foco em:
 
-Arquitetura limpa
+- Arquitetura limpa
+- Boas práticas REST
+- Consistência transacional
+- Testes automatizados
+- Escalabilidade futura
 
-Boas práticas REST
-
-Consistência transacional
-
-Testes automatizados
-
-Escalabilidade futura
-
-🏗️ Arquitetura
+## 🏗️ Arquitetura
 
 Arquitetura baseada em camadas:
 
+```
 Controller → Service → Repository → Database
-🔹 Controller
+```
 
-Responsável por expor os endpoints REST.
+**🔹 Controller**
+- Responsável por expor os endpoints REST.
 
-🔹 Service
+**🔹 Service**
+- Contém regras de negócio e controle transacional.
 
-Contém regras de negócio e controle transacional.
+**🔹 Repository**
+- Comunicação com o banco via Spring Data JPA.
 
-🔹 Repository
+**🔹 Model**
+- Entidades mapeadas com JPA.
 
-Comunicação com o banco via Spring Data JPA.
+## 🚀 Tecnologias Utilizadas
 
-🔹 Model
+| Tecnologia | Finalidade |
+|---|---|
+| Java 21+ | Linguagem principal |
+| Spring Boot | Framework backend |
+| Spring Web | APIs REST |
+| Spring Data JPA | Persistência |
+| PostgreSQL | Banco de dados |
+| Hibernate | ORM |
+| JUnit 5 | Testes |
+| Mockito | Mock de dependências |
+| Flyway | Versionamento de banco |
+| Docker | Containerização |
 
-Entidades mapeadas com JPA.
+## 📂 Estrutura do Projeto
 
-🚀 Tecnologias Utilizadas
-Tecnologia	Finalidade
-Java 21+	Linguagem principal
-Spring Boot	Framework backend
-Spring Web	APIs REST
-Spring Data JPA	Persistência
-PostgreSQL	Banco de dados
-Hibernate	ORM
-JUnit 5	Testes
-Mockito	Mock de dependências
-Flyway	Versionamento de banco
-Docker	Containerização
-📂 Estrutura do Projeto
+```
 bank-api/
  ├── controller/
  │     ├── UserController.java
@@ -90,148 +84,121 @@ bank-api/
  ├── dto/
  ├── exception/
  └── config/
-👤 Funcionalidades
-🔹 Usuários
+```
 
-POST /users → Criar usuário
+## 👤 Funcionalidades
 
-GET /users/{id} → Buscar usuário
+### 🔹 Usuários
 
-GET /users → Listar usuários
+- `POST /users` → Criar usuário
+- `GET /users/{id}` → Buscar usuário
+- `GET /users` → Listar usuários
+- `PUT /users/{id}` → Atualizar usuário
+- `DELETE /users/{id}` → Remover usuário
 
-PUT /users/{id} → Atualizar usuário
+### 💰 Conta
 
-DELETE /users/{id} → Remover usuário
+- `POST /accounts` → Criar conta
+- `GET /accounts/{id}` → Consultar saldo
+- `POST /accounts/deposit` → Depositar
+- `POST /accounts/withdraw` → Sacar
 
-💰 Conta
+### 🔁 Transferências
 
-POST /accounts → Criar conta
+- `POST /transfers`
 
-GET /accounts/{id} → Consultar saldo
-
-POST /accounts/deposit → Depositar
-
-POST /accounts/withdraw → Sacar
-
-🔁 Transferências
-
-POST /transfers
-
-Exemplo Request
+**Exemplo Request**
+```json
 {
   "fromAccountId": "uuid",
   "toAccountId": "uuid",
   "amount": 200.00
 }
-🧠 Regras de Negócio
+```
 
-✔ Não permite saldo insuficiente
-✔ Não permite valores <= 0
-✔ Não permite transferência para mesma conta
-✔ Operações financeiras são transacionais
-✔ Histórico de todas as movimentações
-✔ Validação de existência de conta
+## 🧠 Regras de Negócio
 
-🔐 Segurança (Roadmap)
+- ✔ Não permite saldo insuficiente
+- ✔ Não permite valores <= 0
+- ✔ Não permite transferência para mesma conta
+- ✔ Operações financeiras são transacionais
+- ✔ Histórico de todas as movimentações
+- ✔ Validação de existência de conta
 
-Autenticação JWT
+## 🔐 Segurança (Roadmap)
 
-Autorização por usuário
+- Autenticação JWT
+- Autorização por usuário
+- Proteção contra acesso indevido a contas
+- Logs de auditoria financeira
 
-Proteção contra acesso indevido a contas
-
-Logs de auditoria financeira
-
-🧪 Testes Automatizados
+## 🧪 Testes Automatizados
 
 O projeto possui:
 
-Testes unitários de Service
+- Testes unitários de Service
+- Testes de validação de regras de negócio
+- Testes de exceções
+- Testes de transferência com sucesso
+- Testes de saldo insuficiente
 
-Testes de validação de regras de negócio
+**Exemplo de Caso Testado**
 
-Testes de exceções
+- Transferência válida reduz saldo da conta origem
+- Transferência inválida lança exceção
+- Transação é revertida em caso de erro
 
-Testes de transferência com sucesso
+## 🐳 Executando com Docker
 
-Testes de saldo insuficiente
-
-Exemplo de Caso Testado
-
-Transferência válida reduz saldo da conta origem
-
-Transferência inválida lança exceção
-
-Transação é revertida em caso de erro
-
-🐳 Executando com Docker
+```bash
 docker-compose up -d
+```
 
 Inclui:
 
-API
+- API
+- PostgreSQL
 
-PostgreSQL
-
-🗄️ Banco de Dados
+## 🗄️ Banco de Dados
 
 Entidades principais:
 
-User
+**User**
+- id
+- name
+- email
 
-id
+**Account**
+- id
+- user_id
+- balance
 
-name
+**Transaction**
+- id
+- from_account
+- to_account
+- amount
+- date
 
-email
+## 📈 Melhorias Futuras
 
-Account
+- Integração com gateway de pagamento
+- Cache com Redis
+- Event-driven (Kafka)
+- Rate limiting
+- Observabilidade (Prometheus + Grafana)
+- Deploy em Kubernetes
 
-id
-
-user_id
-
-balance
-
-Transaction
-
-id
-
-from_account
-
-to_account
-
-amount
-
-date
-
-📈 Melhorias Futuras
-
-Integração com gateway de pagamento
-
-Cache com Redis
-
-Event-driven (Kafka)
-
-Rate limiting
-
-Observabilidade (Prometheus + Grafana)
-
-Deploy em Kubernetes
-
-🎯 Objetivo do Projeto
+## 🎯 Objetivo do Projeto
 
 Projeto criado para:
 
-Portfólio backend Java
+- Portfólio backend Java
+- Demonstrar domínio de transações financeiras
+- Praticar arquitetura escalável
+- Simular ambiente real de banco digital
 
-Demonstrar domínio de transações financeiras
+## 👨‍💻 Autor
 
-Praticar arquitetura escalável
-
-Simular ambiente real de banco digital
-
-👨‍💻 Autor
-
-Kaique Demetrio
+**Kaique Demetrio**  
 Desenvolvedor Backend | Java | Microsserviços | Arquitetura
